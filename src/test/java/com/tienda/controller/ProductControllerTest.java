@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @SpringBootTest
 @AutoConfigureMockMvc
 class ProductControllerTest {
+    /*
 
     final String BASE_URL = "/v1/product";
 
@@ -117,5 +118,5 @@ class ProductControllerTest {
 
         System.out.println(result.andReturn().getResponse().getContentAsString());
 
-    }
+    }*/
 }

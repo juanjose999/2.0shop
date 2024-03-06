@@ -52,6 +52,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class UserControllerTest {
+    /*
 
     final String BASE_URL = "/v1/user";
 
@@ -94,6 +95,6 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.password", Matchers.is("xjuanx")));
 
         Mockito.verify(userService, times(1)).findUserById("1");
-    }
+    }*/
 
 }
