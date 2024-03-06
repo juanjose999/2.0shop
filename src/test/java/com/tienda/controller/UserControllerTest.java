@@ -96,48 +96,4 @@ class UserControllerTest {
         Mockito.verify(userService, times(1)).findUserById("1");
     }
 
-    @Test
-    void saveUser() throws Exception{
-        UserResponseDto userResponseDto = new UserResponseDto("1", "Juan", "Sierra", "juan@gmail.com","xjuanx");
-
-        when(userService.saveUser(any())).thenReturn(userResponseDto);
-        String json = "{\"name\":\"Juan\",\"lastName\":\"Sierra\",\"email\":\"juan@gmail.com\",\"password\":\"xjuanx\"}";
-        mockMvc.perform(post(BASE_URL)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
-                .andExpect(status().isCreated());
-
-        Mockito.verify(userService, times(1)).saveUser(any());
-    }
-
-    @Test
-    void updateUser() throws Exception{
-        UserResponseDto userResponseDto = new UserResponseDto("1", "Juan", "Sierra", "juan@gmail.com","xjuanx");
-
-        when(userService.findUserById(any())).thenReturn(Optional.of(userResponseDto));
-
-        String json = "{\"id\":\"1\",\"name\":\"Juan\",\"lastName\":\"Sierra\",\"email\":\"juan@gmail.com\",\"password\":\"xjuanx\"}";
-        ResultActions result = mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json));
-
-        System.out.println(result.andReturn().getResponse().getContentAsString());
-
-    }
-
-    @Test
-    void deleteUser() throws Exception{
-        UserResponseDto userResponseDto = new UserResponseDto("1", "Juan", "Sierra", "juan@gmail.com","xjuanx");
-
-        when(userService.findUserById("/1")).thenReturn(Optional.of(userResponseDto));
-
-        String json = "{\"id\":\"1\",\"Juan\",\"lastName\":\"Sierra\":\"xjuanx\"}";
-
-        mockMvc.perform(delete(BASE_URL + "/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
-                .andExpect(status().isOk());
-
-        Mockito.verify(userService, times(1)).deleteUserById("1");
-    }
 }

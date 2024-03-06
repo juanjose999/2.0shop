@@ -22,16 +22,16 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
-        loadSampleUsers();
+        //loadSampleUsers();
     }
 
     public void loadSampleUsers() {
-        LocalDate fecha = LocalDate.of(2024, 2, 22);
+        /*LocalDate fecha = LocalDate.of(2024, 2, 22);
         String fechaString = fecha.toString();
         UserDto userEntity = new UserDto("Ada", " Lovelace", fecha, "ada@mail.com", "passw0rd");
         userService.createUser(userEntity);
         UserDto adminUserEntity = new UserDto("Ada", "Admin", fecha, "admin@mail.com", "passw0rd");
-        UserResponseDto userCreated = userService.createUser(adminUserEntity);
+        UserResponseDto userCreated = userService.createUser(adminUserEntity);*/
     }
 
 
@@ -57,11 +57,13 @@ public class UserController {
     }
 
     @PostMapping
+    @RolesAllowed(ADMIN_ROLE)
     public ResponseEntity<UserResponseDto> saveUser(@RequestBody UserDto userDto){
         return new ResponseEntity<>(userService.saveUser(userDto),HttpStatus.CREATED);
     }
 
     @PutMapping("/{userId}")
+    @RolesAllowed(ADMIN_ROLE)
     public ResponseEntity<Boolean> updateUser(@PathVariable String userId, @RequestBody UserDto userDto){
         try{
             Boolean isUpdateUser = userService.updateUser(userId, userDto);

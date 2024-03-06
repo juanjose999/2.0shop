@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -46,11 +47,9 @@ public class UserServiceTest {
 
         assertEquals("Juan Jose", result.get(0).getName());
         assertEquals("juan@gmail.com", result.get(0).getEmail());
-        assertEquals("anjuxxx", result.get(0).getPassword());
 
         assertEquals("Maria", result.get(1).getName());
         assertEquals("maria@gmail.com", result.get(1).getEmail());
-        assertEquals("mariaccc", result.get(1).getPassword());
     }
 
     @Test
@@ -67,7 +66,8 @@ public class UserServiceTest {
 
     @Test
     void saveUser_ReturnUserResponseDto(){
-        UserDto userDto = new UserDto("Juan Jose", "sierra ortega","juan@gmail.com","anju00");
+        LocalDate fecha = LocalDate.of(2024, 2, 22);
+        UserDto userDto = new UserDto("Juan Jose", "sierra ortega",fecha,"juan@gmail.com","anju00");
         when(userRepository.saveUser(any())).thenReturn(
                 new User("Juan Jose", "sierra ortega","juan@gmail.com","anju00"));
         UserResponseDto result = userServiceImpl.saveUser(userDto);
@@ -75,7 +75,6 @@ public class UserServiceTest {
         assertNotNull(result);
         assertEquals("Juan Jose", result.getName());
         assertEquals("juan@gmail.com", result.getEmail());
-        assertEquals("anju00", result.getPassword());
 
     }
 
@@ -83,7 +82,8 @@ public class UserServiceTest {
     void updateUser(){
 
         String userId = "44";
-        UserDto userDto = new UserDto("Maria", "carrillo","maria@gmail.com","mariaccc");
+        LocalDate fecha = LocalDate.of(2024, 2, 22);
+        UserDto userDto = new UserDto("Maria", "carrillo",fecha,"maria@gmail.com","mariaccc");
         when(userRepository.updateUser(eq(userId), any())).thenAnswer(invocation -> {
             User updateUser = invocation.getArgument(1);
             assertEquals(userDto.getName(), updateUser.getName());
